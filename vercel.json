@@ -1,17 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/api/sports/openf1/(.*)",
-      "destination": "/api/sports/openf1?path=$1"
-    },
-    {
-      "source": "/api/sports/ergast/(.*)",
-      "destination": "/api/sports/ergast?path=$1"
-    },
-    {
-      "source": "/api/sports/streamed/(.*)",
-      "destination": "/api/sports/streamed?path=$1"
-    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

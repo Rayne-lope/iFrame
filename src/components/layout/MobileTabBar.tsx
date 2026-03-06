@@ -1,10 +1,9 @@
-import { Clapperboard, Flag, Heart, Home, Tv2, Video } from "lucide-react";
+import { Clapperboard, Heart, Home, Tv2, Video } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const tabItems = [
   { label: "Home", to: "/", icon: Home },
-  { label: "Sports", to: "/sports", icon: Flag },
   { label: "Movies", to: "/browse/movies", icon: Clapperboard },
   { label: "Series", to: "/browse/series", icon: Tv2 },
   { label: "Anime", to: "/browse/anime", icon: Video },

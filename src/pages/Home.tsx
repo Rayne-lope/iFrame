@@ -85,7 +85,6 @@ const HERO_AUTOSLIDE_MS = 7000;
 
 const navItems: NavItem[] = [
   { label: "Home", to: "/" },
-  { label: "Sports", to: "/sports" },
   { label: "Movies", to: "/browse/movies" },
   { label: "Series", to: "/browse/series" },
   { label: "Anime", to: "/browse/anime" },

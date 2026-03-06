@@ -11,7 +11,6 @@ type NavEntry = {
 
 const navEntries: NavEntry[] = [
   { label: 'Home', to: '/' },
-  { label: 'Sports', to: '/sports' },
   { label: 'Movies', to: '/browse/movies' },
   { label: 'Series', to: '/browse/series' },
   { label: 'Anime', to: '/browse/anime' },

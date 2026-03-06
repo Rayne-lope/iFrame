@@ -67,6 +67,28 @@ function computeProgressPercent(positionSeconds: number, durationSeconds?: numbe
 
 export default function WatchTV() {
   const { id, s, e } = useParams<{ id: string; s: string; e: string }>()
+  const parsedSeasonNum = Number.parseInt(s ?? '1', 10)
+  const parsedEpisodeNum = Number.parseInt(e ?? '1', 10)
+  const seasonNum = Number.isFinite(parsedSeasonNum) && parsedSeasonNum > 0 ? parsedSeasonNum : 1
+  const episodeNum = Number.isFinite(parsedEpisodeNum) && parsedEpisodeNum > 0 ? parsedEpisodeNum : 1
+
+  return (
+    <WatchTVContent
+      key={`${id ?? ''}:${seasonNum}`}
+      id={id}
+      seasonNum={seasonNum}
+      episodeNum={episodeNum}
+    />
+  )
+}
+
+type WatchTVContentProps = {
+  id: string | undefined
+  seasonNum: number
+  episodeNum: number
+}
+
+function WatchTVContent({ id, seasonNum, episodeNum }: WatchTVContentProps) {
   const navigate = useNavigate()
   const addHistory = useHistoryStore((state) => state.add)
   const historyItems = useHistoryStore((state) => state.items)
@@ -81,10 +103,6 @@ export default function WatchTV() {
   const autoNext = usePlayerStore((state) => state.autoNext)
   const toggleAutoNext = usePlayerStore((state) => state.toggleAutoNext)
 
-  const parsedSeasonNum = Number.parseInt(s ?? '1', 10)
-  const parsedEpisodeNum = Number.parseInt(e ?? '1', 10)
-  const seasonNum = Number.isFinite(parsedSeasonNum) && parsedSeasonNum > 0 ? parsedSeasonNum : 1
-  const episodeNum = Number.isFinite(parsedEpisodeNum) && parsedEpisodeNum > 0 ? parsedEpisodeNum : 1
   const episodeKey = `${id ?? ''}:${seasonNum}:${episodeNum}`
 
   const [activeSource, setActiveSource] = useState('')
@@ -120,10 +138,6 @@ export default function WatchTV() {
     queryFn: () => getTVSeason(id!, browserSeason),
     enabled: !!id,
   })
-
-  useEffect(() => {
-    setBrowserSeason(seasonNum)
-  }, [id, seasonNum])
 
   useEffect(() => {
     if (!show) return
@@ -560,7 +574,7 @@ export default function WatchTV() {
         <div className="mt-5">
           <h1 className="page-title !text-2xl sm:!text-3xl">{show?.name ?? '...'}</h1>
           <p className="text-muted-foreground text-sm mt-1">
-            S{s}E{e}
+            S{seasonNum}E{episodeNum}
             {currentEp ? ` — ${currentEp.name}` : ''}
           </p>
         </div>

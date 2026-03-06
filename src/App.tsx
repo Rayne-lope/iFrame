@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import PageSkeleton from "@/components/ui/PageSkeleton";
 import MovieDetailModal from "@/components/detail/MovieDetailModal";
@@ -20,7 +20,6 @@ const Watchlist = lazy(() => import("./pages/Watchlist"));
 const History = lazy(() => import("./pages/History"));
 const Genre = lazy(() => import("./pages/Genre"));
 const Browse = lazy(() => import("./pages/Browse"));
-const Sports = lazy(() => import("./pages/Sports"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -146,19 +145,11 @@ function AppRoutes() {
             />
             <Route
               path="/sports"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Sports />
-                </Suspense>
-              }
+              element={<Navigate to="/" replace />}
             />
             <Route
               path="/sports/:sport"
-              element={
-                <Suspense fallback={<PageSkeleton />}>
-                  <Sports />
-                </Suspense>
-              }
+              element={<Navigate to="/" replace />}
             />
             <Route
               path="*"

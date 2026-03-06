@@ -1,0 +1,11 @@
+{
+  "autoAllowedCapabilities": [
+    "workspace_read"
+  ],
+  "createdAt": "2026-03-06T13:10:22.333704300+00:00",
+  "providerResolvedPaths": {
+    "codex": "C:\\Users\\acer\\AppData\\Roaming\\npm\\codex.cmd",
+    "copilot": "C:\\Users\\acer\\AppData\\Roaming\\npm\\copilot.cmd"
+  },
+  "workspaceRoot": "C:\\iFrame"
+}

@@ -182,6 +182,14 @@ function mediaYear(item: {
   return (item.release_date ?? item.first_air_date ?? "").slice(0, 4);
 }
 
+function suggestionImageUrl(item: HomeMedia): string {
+  return tmdbImage(item.poster_path, "w185") || tmdbImage(item.backdrop_path, "w300");
+}
+
+function suggestionImageKey(item: HomeMedia): string {
+  return `${item.media_type}:${item.id}:${item.poster_path ?? item.backdrop_path ?? "fallback"}`;
+}
+
 function clampPercent(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
@@ -532,6 +540,9 @@ export default function Home() {
   const [isNavHidden, setIsNavHidden] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [failedContinueImages, setFailedContinueImages] = useState<
+    Record<string, true>
+  >({});
+  const [failedSuggestionImages, setFailedSuggestionImages] = useState<
     Record<string, true>
   >({});
 
@@ -1026,6 +1037,16 @@ export default function Home() {
     });
   }
 
+  function handleSuggestionImageError(imageKey: string) {
+    setFailedSuggestionImages((current) => {
+      if (current[imageKey]) return current;
+      return {
+        ...current,
+        [imageKey]: true,
+      };
+    });
+  }
+
   const watchlistBadge = watchlistCount > 99 ? "99+" : String(watchlistCount);
 
   // Scroll detection
@@ -1175,16 +1196,35 @@ export default function Home() {
                         <button
                           key={`${item.media_type}-${item.id}`}
                           type="button"
-                          className="search-suggestion-item"
+                          className="search-result-item"
                           onMouseDown={(event) => event.preventDefault()}
                           onClick={() => handleSuggestionOpen(item)}
                         >
-                          <span className="search-suggestion-title">
-                            {mediaTitle(item)}
+                          <span className="search-result-thumb" aria-hidden="true">
+                            {suggestionImageUrl(item) &&
+                            !failedSuggestionImages[suggestionImageKey(item)] ? (
+                              <img
+                                src={suggestionImageUrl(item)}
+                                alt=""
+                                loading="lazy"
+                                onError={() =>
+                                  handleSuggestionImageError(suggestionImageKey(item))
+                                }
+                              />
+                            ) : (
+                              <span className="search-result-thumb-fallback">
+                                {mediaTitle(item).slice(0, 1).toUpperCase()}
+                              </span>
+                            )}
                           </span>
-                          <span className="search-suggestion-meta">
-                            {item.media_type === "tv" ? "Series" : "Movie"} ·{" "}
-                            {mediaYear(item) || "N/A"}
+                          <span className="search-result-copy">
+                            <span className="search-result-title">
+                              {mediaTitle(item)}
+                            </span>
+                            <span className="search-result-meta">
+                              {item.media_type === "tv" ? "Series" : "Movie"} ·{" "}
+                              {mediaYear(item) || "N/A"}
+                            </span>
                           </span>
                         </button>
                       ))}

@@ -58,15 +58,15 @@ export default function Search() {
           </span>
         </div>
 
-        <div className="input-shell flex items-center gap-2 px-3 mb-4">
-          <SearchIcon className="w-4.5 h-4.5 text-muted-foreground" />
+        <div className="search-page-input-shell mb-4">
+          <SearchIcon className="search-page-input-icon w-5 h-5" />
           <input
             type="text"
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
             placeholder="Search movies, TV shows, cast..."
             autoFocus
-            className="input-control px-0"
+            className="search-page-input"
           />
         </div>
 

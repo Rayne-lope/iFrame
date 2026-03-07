@@ -174,6 +174,54 @@
     @apply w-full rounded-full bg-transparent px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground outline-none;
   }
 
+  .search-page-input-shell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    overflow: hidden;
+    min-height: 3.9rem;
+    border-radius: 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(16, 16, 16, 0.74);
+    padding: 0.2rem 1rem;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .search-page-input-shell:focus-within {
+    border-color: rgba(243, 188, 22, 0.45);
+    background: rgba(20, 20, 20, 0.9);
+    box-shadow:
+      0 0 0 3px rgba(243, 188, 22, 0.12),
+      0 12px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .search-page-input-icon {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  .search-page-input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--foreground);
+    font-size: clamp(1rem, 1.5vw, 1.08rem);
+    line-height: 1.5;
+    outline: none;
+    padding: 0.95rem 0;
+  }
+
+  .search-page-input::placeholder {
+    color: var(--muted);
+  }
+
   .soft-divider {
     @apply h-px;
     background: linear-gradient(
@@ -219,12 +267,13 @@
 
   .mobile-tabbar {
     position: fixed;
-    left: 0.75rem;
-    right: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(calc(100% - 1.5rem), 25rem);
     bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px));
     z-index: 70;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0.35rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 1.25rem;
@@ -249,10 +298,15 @@
     font-size: 0.61rem;
     font-weight: 600;
     text-decoration: none;
+    text-align: center;
     transition:
       color 0.2s ease,
       background 0.2s ease,
       transform 0.2s ease;
+  }
+
+  .mobile-tabbar-link span {
+    line-height: 1.1;
   }
 
   .mobile-tabbar-link-active {
@@ -399,8 +453,7 @@
     }
 
     .mobile-tabbar {
-      left: 0.5rem;
-      right: 0.5rem;
+      width: min(calc(100% - 1rem), 23.5rem);
       bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
     }
 
